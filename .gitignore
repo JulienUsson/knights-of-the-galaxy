@@ -6,3 +6,4 @@ node_modules
 .env
 .direnv
 *.db
+*.db-journal

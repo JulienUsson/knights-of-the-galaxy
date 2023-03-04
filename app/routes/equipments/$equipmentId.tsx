@@ -1,11 +1,12 @@
 import { json, redirect } from '@remix-run/node'
 import type { LoaderFunction, ActionFunction, MetaFunction } from '@remix-run/node'
-import type { Equipment } from '@prisma/client'
+import type { Equipment as EquipmentEntity } from '@prisma/client'
 import { db } from '~/utils/db.server'
 import { Form, Link, useActionData, useLoaderData } from '@remix-run/react'
-import { Button, Stack, Typography } from '@mui/material'
+import { Button, Grid, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
+import Equipment from '~/components/Equipment'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -14,11 +15,11 @@ export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => 
     }
   }
   return {
-    title: `Equipement/${data.equipment.title}`,
+    title: `Equipement/${data.equipment.name}`,
   }
 }
 
-type LoaderData = { equipment: Equipment }
+type LoaderData = { equipment: EquipmentEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
   let equipment = await db.equipment.findFirst({
@@ -71,24 +72,36 @@ export default function EquipmentRoute() {
   return (
     <>
       <Button component={Link} to="/equipments">
-        Equipements
+        &lt;- Equipements
       </Button>
-      <Form method="delete">
-        <Button variant="contained" color="error" type="submit">
-          Supprimer
-        </Button>
-      </Form>
-
-      <Typography>{data.equipment.title}</Typography>
-      <Form method="post">
-        <Stack direction="column" spacing={1}>
-          <EquipmentForm {...data.equipment} />
-          {actionData?.formError && <Typography color="error">{actionData.formError}</Typography>}
-          <Button variant="contained" type="submit">
-            Editer
+      <Typography variant="h2">Editer un équipement</Typography>
+      <Stack direction="row" mb={2}>
+        <Form method="delete">
+          <Button variant="contained" color="error" type="submit">
+            Supprimer
           </Button>
-        </Stack>
-      </Form>
+        </Form>
+      </Stack>
+
+      <Grid container spacing={1}>
+        <Grid item xs={6}>
+          <Form method="post">
+            <Stack direction="column" spacing={1}>
+              <EquipmentForm {...data.equipment} />
+              {actionData?.formError && (
+                <Typography color="error">{actionData.formError}</Typography>
+              )}
+              <Button variant="contained" type="submit">
+                Editer
+              </Button>
+            </Stack>
+          </Form>
+        </Grid>
+
+        <Grid item xs={6}>
+          <Equipment {...data.equipment} />
+        </Grid>
+      </Grid>
     </>
   )
 }

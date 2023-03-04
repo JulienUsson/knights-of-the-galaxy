@@ -29,6 +29,9 @@ export default function NewEquipmentRoute() {
 
   return (
     <Form method="post">
+      <Typography variant="h2" gutterBottom>
+        Créer un équipement
+      </Typography>
       <EquipmentForm {...actionData?.fields} />
       {actionData?.formError && <Typography color="error">{actionData.formError}</Typography>}
       <Button type="submit">Create</Button>

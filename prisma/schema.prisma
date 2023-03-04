@@ -11,6 +11,9 @@ datasource db {
 }
 
 model Equipment {
-  id    Int    @id @default(autoincrement())
-  title String
+  id         Int    @id @default(autoincrement())
+  name       String
+  actionCost String
+  marketCost String
+  action     String
 }
