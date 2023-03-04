@@ -3,7 +3,7 @@ import type { LoaderFunction, ActionFunction, MetaFunction } from '@remix-run/no
 import type { Equipment as EquipmentEntity } from '@prisma/client'
 import { db } from '~/utils/db.server'
 import { Form, Link, useActionData, useLoaderData } from '@remix-run/react'
-import { Button, Grid, Stack, Typography } from '@mui/material'
+import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
 import Equipment from '~/components/Equipment'
@@ -70,12 +70,12 @@ export default function EquipmentRoute() {
   let actionData = useActionData<ActionData | undefined>()
 
   return (
-    <>
+    <Container maxWidth="lg">
       <Button component={Link} to="/equipments">
         &lt;- Equipements
       </Button>
       <Typography variant="h2">Editer un équipement</Typography>
-      <Stack direction="row" mb={2}>
+      <Stack direction="row" mb={4}>
         <Form method="delete">
           <Button variant="contained" color="error" type="submit">
             Supprimer
@@ -86,7 +86,7 @@ export default function EquipmentRoute() {
       <Grid container spacing={1}>
         <Grid item xs={6}>
           <Form method="post">
-            <Stack direction="column" spacing={1}>
+            <Stack direction="column" spacing={2}>
               <EquipmentForm {...data.equipment} />
               {actionData?.formError && (
                 <Typography color="error">{actionData.formError}</Typography>
@@ -102,6 +102,6 @@ export default function EquipmentRoute() {
           <Equipment {...data.equipment} />
         </Grid>
       </Grid>
-    </>
+    </Container>
   )
 }

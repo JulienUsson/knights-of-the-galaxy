@@ -2,7 +2,7 @@ import type { ActionFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { useActionData, Form } from '@remix-run/react'
 import { db } from '~/utils/db.server'
-import { Button, Typography } from '@mui/material'
+import { Button, Container, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import type { EquipmentFields } from '~/schemas/equipmentSchema'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
@@ -28,13 +28,19 @@ export default function NewEquipmentRoute() {
   let actionData = useActionData<ActionData | undefined>()
 
   return (
-    <Form method="post">
+    <Container maxWidth="lg">
       <Typography variant="h2" gutterBottom>
         Créer un équipement
       </Typography>
-      <EquipmentForm {...actionData?.fields} />
-      {actionData?.formError && <Typography color="error">{actionData.formError}</Typography>}
-      <Button type="submit">Create</Button>
-    </Form>
+      <Form method="post">
+        <Stack direction="column" spacing={2}>
+          <EquipmentForm {...actionData?.fields} />
+          {actionData?.formError && <Typography color="error">{actionData.formError}</Typography>}
+          <Button variant="contained" type="submit">
+            Create
+          </Button>
+        </Stack>
+      </Form>
+    </Container>
   )
 }

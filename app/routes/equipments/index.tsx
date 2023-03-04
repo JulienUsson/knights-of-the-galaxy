@@ -1,4 +1,13 @@
-import { Button, List, ListItem, ListItemButton, ListItemText } from '@mui/material'
+import {
+  Button,
+  Container,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import { db } from '~/utils/db.server'
@@ -13,10 +22,16 @@ export default function EquipmentsRoute() {
   const data = useLoaderData<typeof loader>()
 
   return (
-    <>
-      <Button component={Link} to="new">
-        Créer
-      </Button>
+    <Container maxWidth="lg">
+      <Typography variant="h2">Liste des équipements</Typography>
+      <Stack direction="row" spacing={2} mb={4}>
+        <Button variant="contained" component={Link} to="new">
+          Créer
+        </Button>
+        <Button variant="contained" component={Link} to="print">
+          Imprimer
+        </Button>
+      </Stack>
       <List>
         {data.equipmentListItems.map((equipment) => (
           <ListItem key={equipment.id}>
@@ -26,6 +41,6 @@ export default function EquipmentsRoute() {
           </ListItem>
         ))}
       </List>
-    </>
+    </Container>
   )
 }

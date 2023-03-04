@@ -7,7 +7,7 @@ export default function Equipment(props: Partial<EquipmentEntity>) {
   const marketCosts = props.marketCost?.split(';') ?? []
 
   return (
-    <Stack alignItems="center" justifyContent="center" height="100%">
+    <Stack alignItems="center" justifyContent="center" height="100%" border="1px solid black">
       <Card container>
         <Grid item xs={4} padding={1}>
           <Grid container spacing={2}>
@@ -52,14 +52,11 @@ function Dice({ actionCost, marketCost }: DiceProps) {
 }
 
 const Card = styled(Grid)({
-  width: 498,
-  height: 358,
+  width: '88mm',
+  height: '63mm',
   backgroundColor: '#ccc',
 
-  '@media print': {
-    width: '88mm',
-    height: '63mm',
-  },
+  '@media print': {},
 })
 
 function colorTranslator(color: string) {
@@ -72,5 +69,7 @@ function colorTranslator(color: string) {
       return 'blue'
     case 'noir':
       return 'black'
+    default:
+      return 'white'
   }
 }
