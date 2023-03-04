@@ -1,27 +1,34 @@
-import { Divider, Grid, Stack, styled, Typography } from '@mui/material'
+import { Grid, Stack, styled, Typography } from '@mui/material'
 import type { Equipment as EquipmentEntity } from '@prisma/client'
 import _ from 'lodash'
 
-export default function Equipment(props: Partial<EquipmentEntity>) {
-  const actionCosts = props.actionCost?.split(';') ?? []
-  const marketCosts = props.marketCost?.split(';') ?? []
+interface Props extends Partial<EquipmentEntity> {}
+
+export default function Equipment(equipment: Props) {
+  const actionCosts = equipment.actionCost?.split(';') ?? []
+  const marketCosts = equipment.marketCost?.split(';') ?? []
 
   return (
-    <Stack alignItems="center" justifyContent="center" height="100%" border="1px solid black">
-      <Card container>
-        <Grid item xs={4} padding={1}>
-          <Grid container spacing={2}>
-            {_.range(4).map((i) => (
-              <Dice key={i} actionCost={actionCosts[i]} marketCost={marketCosts[i]} />
-            ))}
-          </Grid>
-        </Grid>
-        <Grid item xs={8}>
-          <Typography align="center" variant="h6">
-            {props.name}
-          </Typography>
-          <Typography align="center">{props.action}</Typography>
-        </Grid>
+    <Stack alignItems="center" justifyContent="center" height="100%">
+      <Card>
+        <CardContent direction="row">
+          <Stack direction="column" width="50mm">
+            <Grid container>
+              {_.range(4).map((i) => (
+                <Dice key={i} actionCost={actionCosts[i]} marketCost={marketCosts[i]} />
+              ))}
+            </Grid>
+            <Typography align="center">{equipment.actionCostText}</Typography>
+          </Stack>
+          <Stack direction="column" flexGrow={1}>
+            <Typography align="center" variant="h6">
+              {equipment.name}
+            </Typography>
+            <Stack alignItems="center" justifyContent="center" flexGrow={1}>
+              <Typography>{equipment.action}</Typography>
+            </Stack>
+          </Stack>
+        </CardContent>
       </Card>
     </Stack>
   )
@@ -38,8 +45,9 @@ function Dice({ actionCost, marketCost }: DiceProps) {
       <Stack
         alignItems="center"
         justifyContent="center"
-        width="72px"
-        height="72px"
+        width="18mm"
+        height="18mm"
+        margin="3.5mm"
         border="1px solid grey"
         bgcolor={colorTranslator(marketCost)}
       >
@@ -51,12 +59,19 @@ function Dice({ actionCost, marketCost }: DiceProps) {
   )
 }
 
-const Card = styled(Grid)({
+const Card = styled('div')({
   width: '88mm',
   height: '63mm',
-  backgroundColor: '#ccc',
+  backgroundColor: '#fff',
+  border: '1px solid black',
+  padding: '2mm',
+})
 
-  '@media print': {},
+const CardContent = styled(Stack)({
+  backgroundColor: '#eee',
+  borderRadius: '5mm',
+  margin: '1mm',
+  height: 'calc(100% - 2mm)',
 })
 
 function colorTranslator(color: string) {

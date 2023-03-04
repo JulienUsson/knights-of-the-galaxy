@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const equipmentSchema = z.object({
   name: z.string(),
   actionCost: z.string(),
+  actionCostText: z.string(),
   marketCost: z.string(),
   action: z.string(),
 })

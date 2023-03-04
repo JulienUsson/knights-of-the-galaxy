@@ -7,6 +7,7 @@ import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
 import Equipment from '~/components/Equipment'
+import _ from 'lodash'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -40,7 +41,7 @@ type ActionData = {
 
 export let action: ActionFunction = async ({ request, params }) => {
   let id = Number.parseInt(params.equipmentId!)
-  if (request.method === 'POST') {
+  if (request.method === 'PUT') {
     let fields = Object.fromEntries(await request.formData())
     let results = equipmentSchema.safeParse(fields)
 
@@ -53,6 +54,15 @@ export let action: ActionFunction = async ({ request, params }) => {
       data: results.data,
     })
     return null
+  } else if (request.method === 'POST') {
+    let equipment = await db.equipment.findFirst({
+      where: { id },
+    })
+    if (!equipment) {
+      throw new Response('Not found', { status: 404 })
+    }
+    let newEquipment = await db.equipment.create({ data: _.omit(equipment, ['id']) })
+    return redirect(`/equipments/${newEquipment.id}`)
   } else if (request.method === 'DELETE') {
     let equipment = await db.equipment.findFirst({
       where: { id: id },
@@ -75,7 +85,12 @@ export default function EquipmentRoute() {
         &lt;- Equipements
       </Button>
       <Typography variant="h2">Editer un équipement</Typography>
-      <Stack direction="row" mb={4}>
+      <Stack direction="row" spacing={1} mb={4}>
+        <Form method="post">
+          <Button variant="contained" type="submit">
+            Cloner
+          </Button>
+        </Form>
         <Form method="delete">
           <Button variant="contained" color="error" type="submit">
             Supprimer
@@ -85,7 +100,7 @@ export default function EquipmentRoute() {
 
       <Grid container spacing={1}>
         <Grid item xs={6}>
-          <Form method="post">
+          <Form method="put">
             <Stack direction="column" spacing={2}>
               <EquipmentForm {...data.equipment} />
               {actionData?.formError && (

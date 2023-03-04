@@ -13,6 +13,12 @@ export default function EquipmentForm(props: Partial<EquipmentEntity>) {
         required
       />
       <TextField
+        name="actionCostText"
+        defaultValue={props.actionCostText}
+        label="Texte coût action"
+        helperText="=5"
+      />
+      <TextField
         name="marketCost"
         defaultValue={props.marketCost}
         label="Coût marché"

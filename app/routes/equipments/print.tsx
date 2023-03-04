@@ -1,4 +1,4 @@
-import { Stack, styled } from '@mui/material'
+import { Grid, styled } from '@mui/material'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import Equipment from '~/components/Equipment'
@@ -17,13 +17,19 @@ export default function EquipmentsRoute() {
 
   return (
     <>
-      {_.chunk(data.equipmentListItems, 8).map((equipments, index) => (
-        <Page key={index}>
-          {_.chunk(equipments, 2).map((equipments, index) => (
-            <Stack key={index} direction="row">
-              <Equipment {...equipments[0]} />
-              <Equipment {...equipments[1]} />
-            </Stack>
+      {_.chunk(data.equipmentListItems, 8).map((equipments, pageIndex) => (
+        <Page key={pageIndex} container>
+          {_.chunk(equipments, 2).map((equipments, lineIndex) => (
+            <Fragment key={lineIndex}>
+              <Grid item>
+                <Equipment {...equipments[0]} />
+              </Grid>
+              {equipments[1] && (
+                <Grid item>
+                  <Equipment {...equipments[1]} />
+                </Grid>
+              )}
+            </Fragment>
           ))}
         </Page>
       ))}
@@ -31,6 +37,7 @@ export default function EquipmentsRoute() {
   )
 }
 
-const Page = styled('div')({
+const Page = styled(Grid)({
+  margin: '1cm',
   pageBreakAfter: 'always',
 })
