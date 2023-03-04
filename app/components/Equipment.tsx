@@ -71,7 +71,7 @@ const Card = styled('div')({
 
 const CardContent = styled(Stack)({
   backgroundColor: '#eee',
-  borderRadius: '5mm',
+  borderRadius: '2mm',
   margin: '1mm',
   height: 'calc(100% - 2mm)',
 })
