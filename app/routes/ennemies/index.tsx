@@ -14,11 +14,11 @@ import { db } from '~/utils/db.server'
 
 export const loader = async () => {
   return json({
-    equipmentListItems: await db.equipment.findMany(),
+    ennemyListItems: await db.ennemy.findMany(),
   })
 }
 
-export default function EquipmentsRoute() {
+export default function EnnemiesRoute() {
   const data = useLoaderData<typeof loader>()
 
   return (
@@ -26,7 +26,7 @@ export default function EquipmentsRoute() {
       <Button component={Link} to="/">
         &lt;- Accueil
       </Button>
-      <Typography variant="h2">Liste des équipements</Typography>
+      <Typography variant="h2">Liste des ennemies</Typography>
       <Stack direction="row" spacing={2} mb={4}>
         <Button variant="contained" component={Link} to="new">
           Créer
@@ -39,10 +39,10 @@ export default function EquipmentsRoute() {
         </Button>
       </Stack>
       <List>
-        {data.equipmentListItems.map((equipment) => (
-          <ListItem key={equipment.id}>
-            <ListItemButton component={Link} to={equipment.id.toString()}>
-              <ListItemText primary={equipment.name} />
+        {data.ennemyListItems.map((ennemy) => (
+          <ListItem key={ennemy.id}>
+            <ListItemButton component={Link} to={ennemy.id.toString()}>
+              <ListItemText primary={ennemy.name} />
             </ListItemButton>
           </ListItem>
         ))}

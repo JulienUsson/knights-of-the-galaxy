@@ -1,12 +1,12 @@
 import type { SxProps, Theme } from '@mui/material'
 import { Stack, styled } from '@mui/material'
-import type { Equipment as EquipmentEntity } from '@prisma/client'
+import type { Ennemy as EnnemyEntity } from '@prisma/client'
 
-interface Props extends Partial<EquipmentEntity> {
+interface Props extends Partial<EnnemyEntity> {
   sx?: SxProps<Theme>
 }
 
-export default function Equipment({ sx, ...equipment }: Props) {
+export default function Ennemy({ sx, ...ennemy }: Props) {
   return (
     <Stack alignItems="center" justifyContent="center" height="100%" sx={sx}>
       <Card>
