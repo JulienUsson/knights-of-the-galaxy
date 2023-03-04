@@ -8,5 +8,5 @@ export const meta: MetaFunction = () => {
 }
 
 export const loader = async () => {
-  return redirect('/cards')
+  return redirect('/equipments')
 }

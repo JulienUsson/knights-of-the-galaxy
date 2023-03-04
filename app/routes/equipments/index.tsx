@@ -5,23 +5,23 @@ import { db } from '~/utils/db.server'
 
 export const loader = async () => {
   return json({
-    cardListItems: await db.card.findMany(),
+    equipmentListItems: await db.equipment.findMany(),
   })
 }
 
-export default function CardsRoute() {
+export default function EquipmentsRoute() {
   const data = useLoaderData<typeof loader>()
 
   return (
     <>
       <Button component={Link} to="new">
-        Create card
+        Créer
       </Button>
       <List>
-        {data.cardListItems.map((card) => (
-          <ListItem key={card.id}>
-            <ListItemButton component={Link} to={card.id.toString()}>
-              <ListItemText primary={card.title} />
+        {data.equipmentListItems.map((equipment) => (
+          <ListItem key={equipment.id}>
+            <ListItemButton component={Link} to={equipment.id.toString()}>
+              <ListItemText primary={equipment.title} />
             </ListItemButton>
           </ListItem>
         ))}
