@@ -13,6 +13,13 @@ export default function EnnemyForm(props: Partial<EnnemyEntity>) {
           <MenuItem value="event">événement</MenuItem>
         </Select>
       </FormControl>
+      <TextField
+        type="number"
+        inputProps={{ step: 1 }}
+        name="phase"
+        defaultValue={props.phase}
+        label="Phase"
+      />
       <TextField name="image" defaultValue={props.image} label="Image" />
       <TextField name="life" defaultValue={props.life} label="Vie" />
       <TextField name="attack" defaultValue={props.attack} label="Attaque" />
