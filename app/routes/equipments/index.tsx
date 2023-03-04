@@ -31,6 +31,9 @@ export default function EquipmentsRoute() {
         <Button variant="contained" component={Link} to="print">
           Imprimer
         </Button>
+        <Button variant="contained" component={Link} to="print-back">
+          Imprimer dos
+        </Button>
       </Stack>
       <List>
         {data.equipmentListItems.map((equipment) => (
