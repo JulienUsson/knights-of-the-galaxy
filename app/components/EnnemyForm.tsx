@@ -16,7 +16,14 @@ export default function EnnemyForm(props: Partial<EnnemyEntity>) {
       <TextField name="image" defaultValue={props.image} label="Image" />
       <TextField name="life" defaultValue={props.life} label="Vie" />
       <TextField name="attack" defaultValue={props.attack} label="Attaque" />
-      <TextField name="description" defaultValue={props.description} label="Description" required />
+      <TextField
+        name="description"
+        defaultValue={props.description}
+        label="Description"
+        multiline
+        rows={6}
+        required
+      />
     </Stack>
   )
 }

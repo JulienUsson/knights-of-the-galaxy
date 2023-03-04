@@ -18,7 +18,14 @@ export default function EquipmentForm(props: Partial<EquipmentEntity>) {
       <TextField name="dice1" defaultValue={props.dice1} label="Dé 1" />
       <TextField name="dice2" defaultValue={props.dice2} label="Dé 2" />
       <TextField name="dice3" defaultValue={props.dice3} label="Dé 3" />
-      <TextField name="description" defaultValue={props.description} label="Description" required />
+      <TextField
+        name="description"
+        defaultValue={props.description}
+        label="Description"
+        multiline
+        rows={6}
+        required
+      />
     </Stack>
   )
 }
