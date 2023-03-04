@@ -1,6 +1,6 @@
 import { Stack, styled } from '@mui/material'
 import _ from 'lodash'
-import cardBackImg from '../../assets/equipment.png'
+import cardBackImg from '../../assets/ennemy.png'
 
 export default function CardBackRoute() {
   return (

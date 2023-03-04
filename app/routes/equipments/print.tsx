@@ -22,11 +22,14 @@ export default function EquipmentsRoute() {
           {_.chunk(equipments, 2).map((equipments, lineIndex) => (
             <Fragment key={lineIndex}>
               <Grid item>
-                <Equipment {...equipments[0]} />
+                <Equipment
+                  sx={{ borderRight: '1px solid black', borderBottom: '1px solid black' }}
+                  {...equipments[0]}
+                />
               </Grid>
               {equipments[1] && (
                 <Grid item>
-                  <Equipment {...equipments[1]} />
+                  <Equipment sx={{ borderBottom: '1px solid black' }} {...equipments[1]} />
                 </Grid>
               )}
             </Fragment>

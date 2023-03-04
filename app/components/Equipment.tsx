@@ -1,15 +1,18 @@
+import type { SxProps, Theme } from '@mui/material'
 import { Grid, Stack, styled, Typography } from '@mui/material'
 import type { Equipment as EquipmentEntity } from '@prisma/client'
 import _ from 'lodash'
 
-interface Props extends Partial<EquipmentEntity> {}
+interface Props extends Partial<EquipmentEntity> {
+  sx?: SxProps<Theme>
+}
 
-export default function Equipment(equipment: Props) {
+export default function Equipment({ sx, ...equipment }: Props) {
   const actionCosts = equipment.actionCost?.split(';') ?? []
   const marketCosts = equipment.marketCost?.split(';') ?? []
 
   return (
-    <Stack alignItems="center" justifyContent="center" height="100%">
+    <Stack alignItems="center" justifyContent="center" height="100%" sx={sx}>
       <Card>
         <CardContent direction="row">
           <Stack direction="column" width="50mm">
@@ -63,7 +66,6 @@ const Card = styled('div')({
   width: '88mm',
   height: '63mm',
   backgroundColor: '#fff',
-  border: '1px solid black',
   padding: '2mm',
 })
 
