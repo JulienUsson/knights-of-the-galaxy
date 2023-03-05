@@ -77,13 +77,11 @@ const Dice = styled(Marked)({
 function GreenLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${greenLayout})` }}>
-      {description && (
-        <Description
-          sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
-        >
-          {description}
-        </Description>
-      )}
+      <Description
+        sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+      >
+        {description ?? ''}
+      </Description>
     </CardContent>
   )
 }
@@ -91,13 +89,11 @@ function GreenLayout({ description }: Partial<EquipmentEntity>) {
 function BlueLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${blueLayout})` }}>
-      {description && (
-        <Description
-          sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
-        >
-          {description}
-        </Description>
-      )}
+      <Description
+        sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+      >
+        {description ?? ''}
+      </Description>
     </CardContent>
   )
 }
@@ -105,30 +101,20 @@ function BlueLayout({ description }: Partial<EquipmentEntity>) {
 function YellowLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${yellowLayout})` }}>
-      {description && (
-        <Description
-          sx={{ position: 'absolute', top: '27mm', left: '6mm', right: '6mm', bottom: '5mm' }}
-        >
-          {description}
-        </Description>
-      )}
-      {dice1 && (
-        <Dice sx={{ position: 'absolute', top: '8mm', left: '6mm', right: '63mm', bottom: '36mm' }}>
-          {dice1}
-        </Dice>
-      )}
-      {dice2 && (
-        <Dice
-          sx={{ position: 'absolute', top: '8mm', left: '35mm', right: '35mm', bottom: '36mm' }}
-        >
-          {dice2}
-        </Dice>
-      )}
-      {dice3 && (
-        <Dice sx={{ position: 'absolute', top: '8mm', left: '62mm', right: '7mm', bottom: '36mm' }}>
-          {dice3}
-        </Dice>
-      )}
+      <Description
+        sx={{ position: 'absolute', top: '27mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+      >
+        {description ?? ''}
+      </Description>
+      <Dice sx={{ position: 'absolute', top: '8mm', left: '6mm', right: '63mm', bottom: '36mm' }}>
+        {dice1 ?? ''}
+      </Dice>
+      <Dice sx={{ position: 'absolute', top: '8mm', left: '35mm', right: '35mm', bottom: '36mm' }}>
+        {dice2 ?? ''}
+      </Dice>
+      <Dice sx={{ position: 'absolute', top: '8mm', left: '62mm', right: '7mm', bottom: '36mm' }}>
+        {dice3 ?? ''}
+      </Dice>
     </CardContent>
   )
 }
@@ -136,17 +122,96 @@ function YellowLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEnt
 function RedLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${red1Layout})` }}>
-      {description && (
-        <Description
-          sx={{ position: 'absolute', top: '6mm', left: '27mm', right: '6mm', bottom: '4mm' }}
-        >
-          {description}
-        </Description>
-      )}
+      <Description
+        sx={{ position: 'absolute', top: '6mm', left: '27mm', right: '6mm', bottom: '4mm' }}
+      >
+        {description ?? ''}
+      </Description>
     </CardContent>
   )
 }
 
-function OrangeLayout({}: Partial<EquipmentEntity>) {
-  return <CardContent sx={{ backgroundImage: `url(${orange1Layout})` }}></CardContent>
+function OrangeLayout({ dice1, dice2, dice3 }: Partial<EquipmentEntity>) {
+  if (dice3) {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${orange3Layout})` }}>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '22mm',
+            left: '7mm',
+            right: '62mm',
+            bottom: '22mm',
+          }}
+        >
+          {dice1 ?? ''}
+        </Dice>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '22mm',
+            left: '35mm',
+            right: '35mm',
+            bottom: '22mm',
+          }}
+        >
+          {dice2 ?? ''}
+        </Dice>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '22mm',
+            left: '62mm',
+            right: '7mm',
+            bottom: '22mm',
+          }}
+        >
+          {dice3 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  } else if (dice2) {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${orange2Layout})` }}>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '22mm',
+            left: '21mm',
+            right: '49mm',
+            bottom: '22mm',
+          }}
+        >
+          {dice1 ?? ''}
+        </Dice>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '22mm',
+            left: '50mm',
+            right: '20mm',
+            bottom: '22mm',
+          }}
+        >
+          {dice2 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  } else {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${orange1Layout})` }}>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '22mm',
+            left: '35mm',
+            right: '35mm',
+            bottom: '22mm',
+          }}
+        >
+          {dice1 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  }
 }
