@@ -136,8 +136,8 @@ function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity
           sx={{
             position: 'absolute',
             top: '5mm',
-            left: '7mm',
-            right: '63mm',
+            left: '6mm',
+            right: '62mm',
             bottom: '40mm',
           }}
         >
@@ -147,8 +147,8 @@ function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity
           sx={{
             position: 'absolute',
             top: '23mm',
-            left: '7mm',
-            right: '63mm',
+            left: '6mm',
+            right: '62mm',
             bottom: '22mm',
           }}
         >
@@ -158,8 +158,8 @@ function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity
           sx={{
             position: 'absolute',
             top: '41mm',
-            left: '7mm',
-            right: '63mm',
+            left: '6mm',
+            right: '62mm',
             bottom: '3mm',
           }}
         >
@@ -175,8 +175,8 @@ function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity
           sx={{
             position: 'absolute',
             top: '7mm',
-            left: '7mm',
-            right: '63mm',
+            left: '6mm',
+            right: '62mm',
             bottom: '38mm',
           }}
         >
@@ -186,8 +186,8 @@ function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity
           sx={{
             position: 'absolute',
             top: '39mm',
-            left: '7mm',
-            right: '63mm',
+            left: '6mm',
+            right: '62mm',
             bottom: '5mm',
           }}
         >
@@ -203,8 +203,8 @@ function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity
           sx={{
             position: 'absolute',
             top: '7mm',
-            left: '7mm',
-            right: '63mm',
+            left: '6mm',
+            right: '62mm',
             bottom: '38mm',
           }}
         >
