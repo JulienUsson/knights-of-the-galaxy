@@ -60,6 +60,12 @@ const CardContent = styled(Stack)({
   backgroundSize: 'cover',
 })
 
+const Description = styled(Marked)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+})
+
 const Dice = styled(Marked)({
   color: '#fff',
   display: 'flex',
@@ -72,9 +78,11 @@ function GreenLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${greenLayout})` }}>
       {description && (
-        <Marked sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}>
+        <Description
+          sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+        >
           {description}
-        </Marked>
+        </Description>
       )}
     </CardContent>
   )
@@ -84,9 +92,11 @@ function BlueLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${blueLayout})` }}>
       {description && (
-        <Marked sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}>
+        <Description
+          sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+        >
           {description}
-        </Marked>
+        </Description>
       )}
     </CardContent>
   )
@@ -96,11 +106,11 @@ function YellowLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEnt
   return (
     <CardContent sx={{ backgroundImage: `url(${yellowLayout})` }}>
       {description && (
-        <Marked
+        <Description
           sx={{ position: 'absolute', top: '27mm', left: '6mm', right: '6mm', bottom: '5mm' }}
         >
           {description}
-        </Marked>
+        </Description>
       )}
       {dice1 && (
         <Dice sx={{ position: 'absolute', top: '8mm', left: '6mm', right: '63mm', bottom: '36mm' }}>
@@ -127,11 +137,11 @@ function RedLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${red1Layout})` }}>
       {description && (
-        <Marked
+        <Description
           sx={{ position: 'absolute', top: '6mm', left: '27mm', right: '6mm', bottom: '4mm' }}
         >
           {description}
-        </Marked>
+        </Description>
       )}
     </CardContent>
   )
