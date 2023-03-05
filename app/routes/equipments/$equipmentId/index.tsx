@@ -96,6 +96,9 @@ export default function EquipmentRoute() {
             Supprimer
           </Button>
         </Form>
+        <Button component={Link} to="print" variant="contained">
+          Imprimer
+        </Button>
       </Stack>
 
       <Grid container spacing={1} direction={{ xs: 'column-reverse', sm: 'row' }}>
