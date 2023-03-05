@@ -19,6 +19,7 @@ export default function Marked({ children, ...props }: Props) {
 
 const Container = styled(Box)({
   flexDirection: 'column',
+  whiteSpace: 'pre',
   '& p': {
     margin: 0,
   },
