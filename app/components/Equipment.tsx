@@ -79,7 +79,7 @@ function GreenLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${greenLayout})` }}>
       <Description
-        sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+        sx={{ position: 'absolute', top: '13mm', left: '6mm', right: '6mm', bottom: '12mm' }}
       >
         {description ?? ''}
       </Description>
@@ -91,7 +91,7 @@ function BlueLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${blueLayout})` }}>
       <Description
-        sx={{ position: 'absolute', top: '6mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+        sx={{ position: 'absolute', top: '13mm', left: '6mm', right: '6mm', bottom: '12mm' }}
       >
         {description ?? ''}
       </Description>
