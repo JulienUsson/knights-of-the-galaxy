@@ -4,7 +4,8 @@ import type { Equipment as EquipmentEntity } from '@prisma/client'
 
 import blueLayout from '~/assets/blue.jpg'
 import greenLayout from '~/assets/green.jpg'
-import orangeLayout from '~/assets/orange.jpg'
+import orange2Layout from '~/assets/orange2.jpg'
+import orange3Layout from '~/assets/orange3.jpg'
 import red1Layout from '~/assets/red1.jpg'
 import red2Layout from '~/assets/red2.jpg'
 import red3Layout from '~/assets/red3.jpg'
@@ -99,24 +100,48 @@ function BlueLayout({ description }: Partial<EquipmentEntity>) {
 }
 
 function OrangeLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity>) {
-  return (
-    <CardContent sx={{ backgroundImage: `url(${orangeLayout})` }}>
-      <Description
-        sx={{ position: 'absolute', top: '27mm', left: '6mm', right: '6mm', bottom: '5mm' }}
-      >
-        {description ?? ''}
-      </Description>
-      <Dice sx={{ position: 'absolute', top: '8mm', left: '6mm', right: '63mm', bottom: '36mm' }}>
-        {dice1 ?? ''}
-      </Dice>
-      <Dice sx={{ position: 'absolute', top: '8mm', left: '35mm', right: '35mm', bottom: '36mm' }}>
-        {dice2 ?? ''}
-      </Dice>
-      <Dice sx={{ position: 'absolute', top: '8mm', left: '62mm', right: '7mm', bottom: '36mm' }}>
-        {dice3 ?? ''}
-      </Dice>
-    </CardContent>
+  const descriptionElement = (
+    <Description
+      sx={{ position: 'absolute', top: '27mm', left: '6mm', right: '6mm', bottom: '5mm' }}
+    >
+      {description ?? ''}
+    </Description>
   )
+
+  if (dice3) {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${orange3Layout})` }}>
+        {descriptionElement}
+        <Dice sx={{ position: 'absolute', top: '8mm', left: '6mm', right: '63mm', bottom: '36mm' }}>
+          {dice1 ?? ''}
+        </Dice>
+        <Dice
+          sx={{ position: 'absolute', top: '8mm', left: '35mm', right: '35mm', bottom: '36mm' }}
+        >
+          {dice2 ?? ''}
+        </Dice>
+        <Dice sx={{ position: 'absolute', top: '8mm', left: '62mm', right: '7mm', bottom: '36mm' }}>
+          {dice3 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  } else {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${orange2Layout})` }}>
+        {descriptionElement}
+        <Dice
+          sx={{ position: 'absolute', top: '8mm', left: '17mm', right: '51mm', bottom: '36mm' }}
+        >
+          {dice1 ?? ''}
+        </Dice>
+        <Dice
+          sx={{ position: 'absolute', top: '8mm', left: '50mm', right: '18mm', bottom: '36mm' }}
+        >
+          {dice2 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  }
 }
 
 function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity>) {
