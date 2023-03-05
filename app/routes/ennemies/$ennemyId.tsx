@@ -98,8 +98,8 @@ export default function EnnemyRoute() {
         </Form>
       </Stack>
 
-      <Grid container spacing={1}>
-        <Grid item xs={6}>
+      <Grid container spacing={1} direction={{ xs: 'column-reverse', sm: 'row' }}>
+        <Grid item xs={12} sm={6}>
           <Form method="put">
             <Stack direction="column" spacing={2}>
               <EnnemyForm {...data.ennemy} />
@@ -113,7 +113,7 @@ export default function EnnemyRoute() {
           </Form>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>
           <Ennemy {...data.ennemy} />
         </Grid>
       </Grid>
