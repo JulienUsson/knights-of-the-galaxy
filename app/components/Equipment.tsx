@@ -119,16 +119,100 @@ function YellowLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEnt
   )
 }
 
-function RedLayout({ description }: Partial<EquipmentEntity>) {
-  return (
-    <CardContent sx={{ backgroundImage: `url(${red1Layout})` }}>
-      <Description
-        sx={{ position: 'absolute', top: '6mm', left: '27mm', right: '6mm', bottom: '4mm' }}
-      >
-        {description ?? ''}
-      </Description>
-    </CardContent>
+function RedLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity>) {
+  const descriptionElement = (
+    <Description
+      sx={{ position: 'absolute', top: '6mm', left: '27mm', right: '6mm', bottom: '4mm' }}
+    >
+      {description ?? ''}
+    </Description>
   )
+
+  if (dice3) {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${red3Layout})` }}>
+        {descriptionElement}
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '5mm',
+            left: '7mm',
+            right: '63mm',
+            bottom: '40mm',
+          }}
+        >
+          {dice1 ?? ''}
+        </Dice>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '23mm',
+            left: '7mm',
+            right: '63mm',
+            bottom: '22mm',
+          }}
+        >
+          {dice2 ?? ''}
+        </Dice>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '41mm',
+            left: '7mm',
+            right: '63mm',
+            bottom: '3mm',
+          }}
+        >
+          {dice3 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  } else if (dice2) {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${red2Layout})` }}>
+        {descriptionElement}
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '7mm',
+            left: '7mm',
+            right: '63mm',
+            bottom: '38mm',
+          }}
+        >
+          {dice1 ?? ''}
+        </Dice>
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '39mm',
+            left: '7mm',
+            right: '63mm',
+            bottom: '5mm',
+          }}
+        >
+          {dice2 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  } else {
+    return (
+      <CardContent sx={{ backgroundImage: `url(${red1Layout})` }}>
+        {descriptionElement}
+        <Dice
+          sx={{
+            position: 'absolute',
+            top: '7mm',
+            left: '7mm',
+            right: '63mm',
+            bottom: '38mm',
+          }}
+        >
+          {dice1 ?? ''}
+        </Dice>
+      </CardContent>
+    )
+  }
 }
 
 function OrangeLayout({ dice1, dice2, dice3 }: Partial<EquipmentEntity>) {
