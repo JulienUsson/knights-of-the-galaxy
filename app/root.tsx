@@ -50,6 +50,10 @@ const Document = withEmotionCache(({ children, title }: DocumentProps, emotionCa
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Orbitron:300,400,500,700&display=swap"
+        />
         <meta name="emotion-insertion-point" content="emotion-insertion-point" />
       </head>
       <body>

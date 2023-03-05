@@ -42,7 +42,7 @@ export default function EquipmentsRoute() {
         {data.equipmentListItems.map((equipment) => (
           <ListItem key={equipment.id}>
             <ListItemButton component={Link} to={equipment.id.toString()}>
-              <ListItemText primary={equipment.name} />
+              <ListItemText primary={equipment.name} sx={{ color: equipment.type }} />
             </ListItemButton>
           </ListItem>
         ))}
