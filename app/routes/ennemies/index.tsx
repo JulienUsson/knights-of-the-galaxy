@@ -11,6 +11,7 @@ import {
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import { db } from '~/utils/db.server'
+import _ from 'lodash'
 
 export const loader = async () => {
   return json({
@@ -39,10 +40,10 @@ export default function EnnemiesRoute() {
         </Button>
       </Stack>
       <List>
-        {data.ennemyListItems.map((ennemy) => (
+        {_.sortBy(data.ennemyListItems, ['type']).map((ennemy) => (
           <ListItem key={ennemy.id}>
             <ListItemButton component={Link} to={ennemy.id.toString()}>
-              <ListItemText primary={ennemy.name} />
+              <ListItemText primary={ennemy.name} secondary={ennemy.type} />
             </ListItemButton>
           </ListItem>
         ))}
