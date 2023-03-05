@@ -13,7 +13,7 @@ export default function Ennemy({ sx, name, description, attack, life, image }: P
     <Stack alignItems="center" justifyContent="center" height="100%" sx={sx}>
       <Card>
         <CardContent direction="row">
-          {image && <Image sx={{ backgroundImage: `url(/assets/${image}.png)` }} />}
+          {image && <Image sx={{ backgroundImage: `url(/assets/${image})` }} />}
           <Layout />
           <Name>{name ?? ''}</Name>
           <Description>{description ?? ''}</Description>
@@ -82,7 +82,7 @@ const Attack = styled(Marked)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: '#fff',
+  color: '#e53935',
   top: '1mm',
   left: '45mm',
   right: '5mm',
@@ -95,7 +95,7 @@ const Life = styled(Marked)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: '#212121',
+  color: '#43a047',
   top: '1mm',
   right: '15mm',
   left: '34mm',
