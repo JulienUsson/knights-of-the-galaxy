@@ -17,10 +17,10 @@ export default function EnnemiesRoute() {
 
   return (
     <>
-      {_.chunk(data.ennemyListItems, 8).map((ennemies, pageIndex) => (
+      {_.chunk(data.ennemyListItems, 9).map((ennemies, pageIndex) => (
         <Page key={pageIndex} container>
-          {_.chunk(ennemies, 2).map((ennemies, lineIndex) => (
-            <Fragment key={lineIndex}>
+          {_.chunk(ennemies, 3).map((ennemies, lineIndex) => (
+            <Grid container key={lineIndex}>
               <Grid item>
                 <Ennemy
                   sx={{
@@ -38,13 +38,26 @@ export default function EnnemiesRoute() {
                     sx={{
                       borderTop: lineIndex === 0 ? '1px solid black' : undefined,
                       borderBottom: '1px solid black',
+                      borderLeft: '1px solid black',
                       borderRight: '1px solid black',
                     }}
                     {...ennemies[1]}
                   />
                 </Grid>
               )}
-            </Fragment>
+              {ennemies[2] && (
+                <Grid item>
+                  <Ennemy
+                    sx={{
+                      borderTop: lineIndex === 0 ? '1px solid black' : undefined,
+                      borderBottom: '1px solid black',
+                      borderRight: '1px solid black',
+                    }}
+                    {...ennemies[2]}
+                  />
+                </Grid>
+              )}
+            </Grid>
           ))}
         </Page>
       ))}
