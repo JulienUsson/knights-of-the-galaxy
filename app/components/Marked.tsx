@@ -1,7 +1,6 @@
 import type { BoxProps } from '@mui/material'
-import { Box, TypographyProps } from '@mui/material'
+import { Box } from '@mui/material'
 import { styled } from '@mui/material'
-import { Typography } from '@mui/material'
 import { marked } from 'marked'
 import { ClientOnly } from 'remix-utils'
 
