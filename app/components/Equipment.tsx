@@ -60,6 +60,14 @@ const CardContent = styled(Stack)({
   backgroundSize: 'cover',
 })
 
+const Dice = styled(Marked)({
+  color: '#fff',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontWeight: '700',
+})
+
 function GreenLayout({ description }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${greenLayout})` }}>
@@ -84,7 +92,7 @@ function BlueLayout({ description }: Partial<EquipmentEntity>) {
   )
 }
 
-function YellowLayout({ description }: Partial<EquipmentEntity>) {
+function YellowLayout({ description, dice1, dice2, dice3 }: Partial<EquipmentEntity>) {
   return (
     <CardContent sx={{ backgroundImage: `url(${yellowLayout})` }}>
       {description && (
@@ -93,6 +101,23 @@ function YellowLayout({ description }: Partial<EquipmentEntity>) {
         >
           {description}
         </Marked>
+      )}
+      {dice1 && (
+        <Dice sx={{ position: 'absolute', top: '8mm', left: '6mm', right: '63mm', bottom: '36mm' }}>
+          {dice1}
+        </Dice>
+      )}
+      {dice2 && (
+        <Dice
+          sx={{ position: 'absolute', top: '8mm', left: '35mm', right: '35mm', bottom: '36mm' }}
+        >
+          {dice2}
+        </Dice>
+      )}
+      {dice3 && (
+        <Dice sx={{ position: 'absolute', top: '8mm', left: '62mm', right: '7mm', bottom: '36mm' }}>
+          {dice3}
+        </Dice>
       )}
     </CardContent>
   )
