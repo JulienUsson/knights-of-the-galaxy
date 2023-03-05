@@ -75,6 +75,7 @@ const Description = styled(Marked)({
   left: 0,
   right: 0,
   bottom: '1mm',
+  fontSize: '0.58rem',
 })
 
 const Attack = styled(Marked)({
@@ -85,7 +86,7 @@ const Attack = styled(Marked)({
   color: '#e53935',
   top: '1mm',
   left: '45mm',
-  right: '5mm',
+  right: '4mm',
   bottom: '71mm',
   fontWeight: '700',
 })
@@ -99,7 +100,7 @@ const Life = styled(Marked)({
   top: '1mm',
   right: '15mm',
   left: '34mm',
-  bottom: '72mm',
+  bottom: '71mm',
   fontWeight: '700',
 })
 
