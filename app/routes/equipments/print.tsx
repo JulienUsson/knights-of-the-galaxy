@@ -23,13 +23,25 @@ export default function EquipmentsRoute() {
             <Fragment key={lineIndex}>
               <Grid item>
                 <Equipment
-                  sx={{ borderRight: '1px solid black', borderBottom: '1px solid black' }}
+                  sx={{
+                    borderTop: lineIndex === 0 ? '1px solid black' : undefined,
+                    borderLeft: '1px solid black',
+                    borderRight: '1px solid black',
+                    borderBottom: '1px solid black',
+                  }}
                   {...equipments[0]}
                 />
               </Grid>
               {equipments[1] && (
                 <Grid item>
-                  <Equipment sx={{ borderBottom: '1px solid black' }} {...equipments[1]} />
+                  <Equipment
+                    sx={{
+                      borderTop: lineIndex === 0 ? '1px solid black' : undefined,
+                      borderBottom: '1px solid black',
+                      borderRight: '1px solid black',
+                    }}
+                    {...equipments[1]}
+                  />
                 </Grid>
               )}
             </Fragment>

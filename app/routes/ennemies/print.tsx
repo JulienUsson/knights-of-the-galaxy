@@ -23,13 +23,25 @@ export default function EnnemiesRoute() {
             <Fragment key={lineIndex}>
               <Grid item>
                 <Ennemy
-                  sx={{ borderRight: '1px solid black', borderBottom: '1px solid black' }}
+                  sx={{
+                    borderTop: lineIndex === 0 ? '1px solid black' : undefined,
+                    borderLeft: '1px solid black',
+                    borderRight: '1px solid black',
+                    borderBottom: '1px solid black',
+                  }}
                   {...ennemies[0]}
                 />
               </Grid>
               {ennemies[1] && (
                 <Grid item>
-                  <Ennemy sx={{ borderBottom: '1px solid black' }} {...ennemies[1]} />
+                  <Ennemy
+                    sx={{
+                      borderTop: lineIndex === 0 ? '1px solid black' : undefined,
+                      borderBottom: '1px solid black',
+                      borderRight: '1px solid black',
+                    }}
+                    {...ennemies[1]}
+                  />
                 </Grid>
               )}
             </Fragment>
