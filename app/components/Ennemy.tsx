@@ -13,7 +13,7 @@ export default function Ennemy({ sx, name, description, attack, life, image }: P
     <Stack alignItems="center" justifyContent="center" height="100%" sx={sx}>
       <Card>
         <CardContent direction="row">
-          {image && <Image sx={{ backgroundImage: `url(/assets/${image})` }} />}
+          {image && <Image sx={{ backgroundImage: `url(/assets/${image}.png)` }} />}
           <Layout />
           <Name>{name ?? ''}</Name>
           <Description>{description ?? ''}</Description>
