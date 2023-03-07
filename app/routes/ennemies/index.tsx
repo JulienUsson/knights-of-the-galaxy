@@ -40,10 +40,13 @@ export default function EnnemiesRoute() {
         </Button>
       </Stack>
       <List>
-        {_.sortBy(data.ennemyListItems, ['type']).map((ennemy) => (
+        {_.sortBy(data.ennemyListItems, ['phase', 'type']).map((ennemy) => (
           <ListItem key={ennemy.id}>
             <ListItemButton component={Link} to={ennemy.id.toString()}>
-              <ListItemText primary={ennemy.name} secondary={ennemy.type} />
+              <ListItemText
+                primary={`[${ennemy.type.toUpperCase()}] ${ennemy.name}`}
+                secondary={`Phase ${ennemy.phase}`}
+              />
             </ListItemButton>
           </ListItem>
         ))}
