@@ -5,10 +5,12 @@ import { useLoaderData } from '@remix-run/react'
 import Equipment from '~/components/Equipment'
 import { db } from '~/utils/db.server'
 import type { Equipment as EquipmentEntity } from '@prisma/client'
+import { requireUserId } from '~/utils/session.server'
 
 type LoaderData = { equipment: EquipmentEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
+  await requireUserId(request)
   let equipment = await db.equipment.findFirst({
     where: { id: Number.parseInt(params.equipmentId!) },
   })
@@ -21,7 +23,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 }
 
 export default function EquipmentPrintRoute() {
-  const data = useLoaderData<typeof loader>()
+  const data = useLoaderData<LoaderData>()
 
   return (
     <Page container>

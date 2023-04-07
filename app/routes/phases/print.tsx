@@ -1,5 +1,11 @@
 import { Grid, styled } from '@mui/material'
+import type { LoaderFunction } from '@remix-run/node'
 import Phase from '~/components/Phase'
+import { requireUserId } from '~/utils/session.server'
+
+export let loader: LoaderFunction = async ({ request }) => {
+  await requireUserId(request)
+}
 
 export default function PhasesRoute() {
   return (

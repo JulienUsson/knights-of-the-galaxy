@@ -1,6 +1,12 @@
 import { Stack, styled } from '@mui/material'
+import type { LoaderFunction } from '@remix-run/node'
 import _ from 'lodash'
+import { requireUserId } from '~/utils/session.server'
 import cardBackImg from '../../assets/equipment-back.png'
+
+export let loader: LoaderFunction = async ({ request }) => {
+  return await requireUserId(request)
+}
 
 export default function CardBackRoute() {
   return (

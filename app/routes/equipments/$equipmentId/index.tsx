@@ -8,6 +8,7 @@ import EquipmentForm from '~/components/EquipmentForm'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
 import Equipment from '~/components/Equipment'
 import _ from 'lodash'
+import { requireUserId } from '~/utils/session.server'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -23,6 +24,7 @@ export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => 
 type LoaderData = { equipment: EquipmentEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
+  await requireUserId(request)
   let equipment = await db.equipment.findFirst({
     where: { id: Number.parseInt(params.equipmentId!) },
   })
@@ -40,6 +42,7 @@ type ActionData = {
 }
 
 export let action: ActionFunction = async ({ request, params }) => {
+  await requireUserId(request)
   let id = Number.parseInt(params.equipmentId!)
   if (request.method === 'PUT') {
     let fields = Object.fromEntries(await request.formData())

@@ -8,6 +8,7 @@ import EnnemyForm from '~/components/EnnemyForm'
 import Ennemy from '~/components/Ennemy'
 import _ from 'lodash'
 import { ennemySchema } from '~/schemas/ennemySchema'
+import { requireUserId } from '~/utils/session.server'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -23,6 +24,7 @@ export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => 
 type LoaderData = { ennemy: EnnemyEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
+  await requireUserId(request)
   let ennemy = await db.ennemy.findFirst({
     where: { id: Number.parseInt(params.ennemyId!) },
   })
@@ -40,6 +42,7 @@ type ActionData = {
 }
 
 export let action: ActionFunction = async ({ request, params }) => {
+  await requireUserId(request)
   let id = Number.parseInt(params.ennemyId!)
   if (request.method === 'PUT') {
     let fields = Object.fromEntries(await request.formData())

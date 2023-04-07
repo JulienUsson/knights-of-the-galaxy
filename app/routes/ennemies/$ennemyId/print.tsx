@@ -5,10 +5,12 @@ import { useLoaderData } from '@remix-run/react'
 import Ennemy from '~/components/Ennemy'
 import { db } from '~/utils/db.server'
 import type { Ennemy as EnnemyEntity } from '@prisma/client'
+import { requireUserId } from '~/utils/session.server'
 
 type LoaderData = { ennemy: EnnemyEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
+  await requireUserId(request)
   let ennemy = await db.ennemy.findFirst({
     where: { id: Number.parseInt(params.ennemyId!) },
   })
@@ -21,7 +23,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 }
 
 export default function EnnemyPrintRoute() {
-  const data = useLoaderData<typeof loader>()
+  const data = useLoaderData<LoaderData>()
 
   return (
     <Page container>

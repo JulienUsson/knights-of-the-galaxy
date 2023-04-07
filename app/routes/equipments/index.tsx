@@ -8,18 +8,24 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
+import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
+import { requireUserId } from '~/utils/session.server'
 import { db } from '~/utils/db.server'
+import type { Equipment as EquipmentEntity } from '@prisma/client'
 
-export const loader = async () => {
+type LoaderData = { equipmentListItems: EquipmentEntity[] }
+
+export let loader: LoaderFunction = async ({ request }) => {
+  await requireUserId(request)
   return json({
     equipmentListItems: await db.equipment.findMany(),
   })
 }
 
 export default function EquipmentsRoute() {
-  const data = useLoaderData<typeof loader>()
+  const data = useLoaderData<LoaderData>()
 
   return (
     <Container maxWidth="lg">

@@ -8,19 +8,25 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
+import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import { db } from '~/utils/db.server'
 import _ from 'lodash'
+import { requireUserId } from '~/utils/session.server'
+import type { Ennemy as EnnemyEntity } from '@prisma/client'
 
-export const loader = async () => {
+type LoaderData = { ennemyListItems: EnnemyEntity[] }
+
+export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserId(request)
   return json({
     ennemyListItems: await db.ennemy.findMany(),
   })
 }
 
 export default function EnnemiesRoute() {
-  const data = useLoaderData<typeof loader>()
+  const data = useLoaderData<LoaderData>()
 
   return (
     <Container maxWidth="lg">

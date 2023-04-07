@@ -1,4 +1,4 @@
-import type { ActionFunction } from '@remix-run/node'
+import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { useActionData, Form } from '@remix-run/react'
 import { db } from '~/utils/db.server'
@@ -6,6 +6,11 @@ import { Button, Container, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import type { EquipmentFields } from '~/schemas/equipmentSchema'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
+import { requireUserId } from '~/utils/session.server'
+
+export let loader: LoaderFunction = async ({ request }) => {
+  return await requireUserId(request)
+}
 
 type ActionData = {
   formError?: string
@@ -13,6 +18,7 @@ type ActionData = {
 }
 
 export let action: ActionFunction = async ({ request }): Promise<Response | ActionData> => {
+  await requireUserId(request)
   let fields = Object.fromEntries(await request.formData())
   let results = equipmentSchema.safeParse(fields)
 

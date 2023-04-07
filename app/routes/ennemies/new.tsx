@@ -6,6 +6,7 @@ import { Button, Container, Stack, Typography } from '@mui/material'
 import EnnemyForm from '~/components/EnnemyForm'
 import type { EnnemyFields } from '~/schemas/ennemySchema'
 import { ennemySchema } from '~/schemas/ennemySchema'
+import { requireUserId } from '~/utils/session.server'
 
 type ActionData = {
   formError?: string
@@ -13,6 +14,7 @@ type ActionData = {
 }
 
 export let action: ActionFunction = async ({ request }): Promise<Response | ActionData> => {
+  await requireUserId(request)
   let fields = Object.fromEntries(await request.formData())
   let results = ennemySchema.safeParse(fields)
 
