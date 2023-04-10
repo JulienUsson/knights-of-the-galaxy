@@ -1,12 +1,13 @@
 import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { useActionData, Form } from '@remix-run/react'
-import { db } from '~/utils/db.server'
+import { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
 import { Button, Container, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import type { EquipmentFields } from '~/schemas/equipmentSchema'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
 import { requireUserId } from '~/utils/session.server'
+import { getEquipmentRepository } from '~/utils/db.server'
 
 export let loader: LoaderFunction = async ({ request }) => {
   return await requireUserId(request)
@@ -19,6 +20,8 @@ type ActionData = {
 
 export let action: ActionFunction = async ({ request }): Promise<Response | ActionData> => {
   await requireUserId(request)
+
+  const equipmentRepository = await getEquipmentRepository()
   let fields = Object.fromEntries(await request.formData())
   let results = equipmentSchema.safeParse(fields)
 
@@ -26,7 +29,8 @@ export let action: ActionFunction = async ({ request }): Promise<Response | Acti
     return { formError: results.error.message, fields }
   }
 
-  let equipment = await db.equipment.create({ data: results.data })
+  let equipment = EquipmentEntity.fromFields(results.data)
+  await equipmentRepository.save(equipment)
   return redirect(`/equipments/${equipment.id}`)
 }
 

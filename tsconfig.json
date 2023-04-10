@@ -21,6 +21,8 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "skipLibCheck": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "paths": {
       "~/*": [
         "./app/*"

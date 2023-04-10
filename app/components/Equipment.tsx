@@ -1,6 +1,6 @@
 import type { SxProps, Theme } from '@mui/material'
 import { Stack, styled } from '@mui/material'
-import type { Equipment as EquipmentEntity } from '@prisma/client'
+import type { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
 
 import blueLayout from '~/assets/blue.png'
 import greenLayout from '~/assets/green.png'

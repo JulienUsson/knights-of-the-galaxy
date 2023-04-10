@@ -7,8 +7,7 @@
     "build:start": "remix-serve build",
     "typecheck": "tsc",
     "lint": "eslint ./app/**/*.{js,ts,tsx}",
-    "lint:fix": "eslint ./app/**/*.{js,ts,tsx} --fix",
-    "migrate": "prisma migrate dev --name "
+    "lint:fix": "eslint ./app/**/*.{js,ts,tsx} --fix"
   },
   "dependencies": {
     "@emotion/cache": "^11.10.7",
@@ -16,7 +15,6 @@
     "@emotion/server": "^11.10.0",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.16",
-    "@prisma/client": "^4.12.0",
     "@remix-run/node": "^1.15.0",
     "@remix-run/react": "^1.15.0",
     "@remix-run/serve": "^1.15.0",
@@ -25,7 +23,10 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "reflect-metadata": "^0.1.13",
     "remix-utils": "^6.1.0",
+    "sqlite3": "^5.1.6",
+    "typeorm": "^0.3.13",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -34,6 +35,7 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/lodash": "^4.14.192",
     "@types/marked": "^4.0.8",
+    "@types/node": "^18.15.11",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.8",
     "eslint": "^8.37.0",
@@ -41,7 +43,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "marked": "^4.3.0",
     "prettier": "^2.8.7",
-    "prisma": "^4.12.0",
     "typescript": "^5.0.4"
   },
   "engines": {

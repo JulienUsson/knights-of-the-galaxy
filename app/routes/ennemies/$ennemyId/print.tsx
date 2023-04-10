@@ -3,15 +3,17 @@ import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import Ennemy from '~/components/Ennemy'
-import { db } from '~/utils/db.server'
-import type { Ennemy as EnnemyEntity } from '@prisma/client'
+import type { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
+import { getEnnemyRepository } from '~/utils/db.server'
 import { requireUserId } from '~/utils/session.server'
 
 type LoaderData = { ennemy: EnnemyEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
   await requireUserId(request)
-  let ennemy = await db.ennemy.findFirst({
+
+  const ennemyRepository = await getEnnemyRepository()
+  let ennemy = await ennemyRepository.findOne({
     where: { id: Number.parseInt(params.ennemyId!) },
   })
 

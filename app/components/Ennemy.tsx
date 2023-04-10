@@ -1,6 +1,6 @@
 import type { SxProps, Theme } from '@mui/material'
 import { Stack, styled } from '@mui/material'
-import type { Ennemy as EnnemyEntity } from '@prisma/client'
+import type { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
 import ennemyLayout from '~/assets/ennemy.png'
 import Marked from './Marked'
 

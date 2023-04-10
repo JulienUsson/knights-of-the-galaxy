@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material'
-import type { Equipment as EquipmentEntity } from '@prisma/client'
+import type { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
 
 export default function EquipmentForm(props: Partial<EquipmentEntity>) {
   return (

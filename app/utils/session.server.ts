@@ -1,11 +1,11 @@
 import bcrypt from 'bcryptjs'
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
-
-import { db } from './db.server'
 import type { LoginFields } from '~/schemas/loginSchema'
+import { getUserRepository } from './db.server'
 
 export async function login({ username, password }: LoginFields) {
-  const user = await db.user.findUnique({
+  const userRepository = await getUserRepository()
+  const user = await userRepository.findOne({
     where: { username },
   })
   if (!user) return null

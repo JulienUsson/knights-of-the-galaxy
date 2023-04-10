@@ -1,14 +1,13 @@
 import { json, redirect } from '@remix-run/node'
 import type { LoaderFunction, ActionFunction, MetaFunction } from '@remix-run/node'
-import type { Ennemy as EnnemyEntity } from '@prisma/client'
-import { db } from '~/utils/db.server'
+import { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
 import { Form, Link, useActionData, useLoaderData } from '@remix-run/react'
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import EnnemyForm from '~/components/EnnemyForm'
 import Ennemy from '~/components/Ennemy'
-import _ from 'lodash'
 import { ennemySchema } from '~/schemas/ennemySchema'
 import { requireUserId } from '~/utils/session.server'
+import { getEnnemyRepository } from '~/utils/db.server'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -25,7 +24,9 @@ type LoaderData = { ennemy: EnnemyEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
   await requireUserId(request)
-  let ennemy = await db.ennemy.findFirst({
+
+  const ennemyRepository = await getEnnemyRepository()
+  let ennemy = await ennemyRepository.findOne({
     where: { id: Number.parseInt(params.ennemyId!) },
   })
 
@@ -43,6 +44,8 @@ type ActionData = {
 
 export let action: ActionFunction = async ({ request, params }) => {
   await requireUserId(request)
+
+  const ennemyRepository = await getEnnemyRepository()
   let id = Number.parseInt(params.ennemyId!)
   if (request.method === 'PUT') {
     let fields = Object.fromEntries(await request.formData())
@@ -52,28 +55,27 @@ export let action: ActionFunction = async ({ request, params }) => {
       return { fieldErrors: results.error.message, fields }
     }
 
-    await db.ennemy.update({
-      where: { id },
-      data: results.data,
-    })
+    let ennemy = EnnemyEntity.fromFields(results.data, id)
+    await ennemyRepository.save(ennemy)
     return null
   } else if (request.method === 'POST') {
-    let ennemy = await db.ennemy.findFirst({
+    let ennemy = await ennemyRepository.findOne({
       where: { id },
     })
     if (!ennemy) {
       throw new Response('Not found', { status: 404 })
     }
-    let newEnnemy = await db.ennemy.create({ data: _.omit(ennemy, ['id']) })
+    let newEnnemy = ennemy.duplicate()
+    await ennemyRepository.save(newEnnemy)
     return redirect(`/ennemies/${newEnnemy.id}`)
   } else if (request.method === 'DELETE') {
-    let ennemy = await db.ennemy.findFirst({
+    let ennemy = await ennemyRepository.findOne({
       where: { id: id },
     })
     if (!ennemy) {
       throw new Response('Not found', { status: 404 })
     }
-    await db.ennemy.delete({ where: { id: id } })
+    await ennemyRepository.remove(ennemy)
     return redirect('/ennemies')
   }
 }

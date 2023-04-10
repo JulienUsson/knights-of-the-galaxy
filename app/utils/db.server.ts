@@ -1,21 +1,34 @@
-import { PrismaClient } from '@prisma/client'
+import { User } from '~/entities/user.entity'
+import { Equipment } from '~/entities/equipment.entity'
+import { Ennemy } from '~/entities/ennemy.entity'
+import { DataSource } from 'typeorm'
+import path from 'path'
 
-let db: PrismaClient
+export const AppDataSource = new DataSource({
+  type: 'sqlite',
+  database: path.join(__dirname, '../database.db'),
+  entities: [Ennemy, Equipment, User],
+})
 
-declare global {
-  var __db: PrismaClient | undefined
-}
-
-// this is needed because in development we don't want to restart
-// the server with every change, but we want to make sure we don't
-// create a new connection to the DB with every change either.
-if (process.env.NODE_ENV === 'production') {
-  db = new PrismaClient()
-} else {
-  if (!global.__db) {
-    global.__db = new PrismaClient()
+export function getDataSource(): Promise<DataSource> {
+  if (AppDataSource.isInitialized) {
+    return Promise.resolve(AppDataSource)
+  } else {
+    return AppDataSource.initialize()
   }
-  db = global.__db
 }
 
-export { db }
+export async function getUserRepository() {
+  const dataSource = await getDataSource()
+  return dataSource.getRepository(User)
+}
+
+export async function getEnnemyRepository() {
+  const dataSource = await getDataSource()
+  return dataSource.getRepository(Ennemy)
+}
+
+export async function getEquipmentRepository() {
+  const dataSource = await getDataSource()
+  return dataSource.getRepository(Equipment)
+}

@@ -1,12 +1,13 @@
 import type { ActionFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { useActionData, Form } from '@remix-run/react'
-import { db } from '~/utils/db.server'
+import { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
 import { Button, Container, Stack, Typography } from '@mui/material'
 import EnnemyForm from '~/components/EnnemyForm'
 import type { EnnemyFields } from '~/schemas/ennemySchema'
 import { ennemySchema } from '~/schemas/ennemySchema'
 import { requireUserId } from '~/utils/session.server'
+import { getEnnemyRepository } from '~/utils/db.server'
 
 type ActionData = {
   formError?: string
@@ -15,6 +16,8 @@ type ActionData = {
 
 export let action: ActionFunction = async ({ request }): Promise<Response | ActionData> => {
   await requireUserId(request)
+
+  const ennemyRepository = await getEnnemyRepository()
   let fields = Object.fromEntries(await request.formData())
   let results = ennemySchema.safeParse(fields)
 
@@ -22,7 +25,8 @@ export let action: ActionFunction = async ({ request }): Promise<Response | Acti
     return { formError: results.error.message, fields }
   }
 
-  let ennemy = await db.ennemy.create({ data: results.data })
+  let ennemy = EnnemyEntity.fromFields(results.data)
+  await ennemyRepository.save(ennemy)
   return redirect(`/ennemies/${ennemy.id}`)
 }
 

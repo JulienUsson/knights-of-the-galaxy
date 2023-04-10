@@ -12,15 +12,17 @@ import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
 import { requireUserId } from '~/utils/session.server'
-import { db } from '~/utils/db.server'
-import type { Equipment as EquipmentEntity } from '@prisma/client'
+import type { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
+import { getEquipmentRepository } from '~/utils/db.server'
 
 type LoaderData = { equipmentListItems: EquipmentEntity[] }
 
 export let loader: LoaderFunction = async ({ request }) => {
   await requireUserId(request)
+
+  const equipmentRepository = await getEquipmentRepository()
   return json({
-    equipmentListItems: await db.equipment.findMany(),
+    equipmentListItems: await equipmentRepository.find(),
   })
 }
 

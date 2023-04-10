@@ -1,14 +1,13 @@
 import { json, redirect } from '@remix-run/node'
 import type { LoaderFunction, ActionFunction, MetaFunction } from '@remix-run/node'
-import type { Equipment as EquipmentEntity } from '@prisma/client'
-import { db } from '~/utils/db.server'
+import { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
 import { Form, Link, useActionData, useLoaderData } from '@remix-run/react'
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
 import Equipment from '~/components/Equipment'
-import _ from 'lodash'
 import { requireUserId } from '~/utils/session.server'
+import { getEquipmentRepository } from '~/utils/db.server'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -25,7 +24,9 @@ type LoaderData = { equipment: EquipmentEntity }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
   await requireUserId(request)
-  let equipment = await db.equipment.findFirst({
+
+  const equipmentRepository = await getEquipmentRepository()
+  let equipment = await equipmentRepository.findOne({
     where: { id: Number.parseInt(params.equipmentId!) },
   })
 
@@ -43,6 +44,8 @@ type ActionData = {
 
 export let action: ActionFunction = async ({ request, params }) => {
   await requireUserId(request)
+
+  const equipmentRepository = await getEquipmentRepository()
   let id = Number.parseInt(params.equipmentId!)
   if (request.method === 'PUT') {
     let fields = Object.fromEntries(await request.formData())
@@ -52,28 +55,27 @@ export let action: ActionFunction = async ({ request, params }) => {
       return { fieldErrors: results.error.message, fields }
     }
 
-    await db.equipment.update({
-      where: { id },
-      data: results.data,
-    })
+    let equipment = EquipmentEntity.fromFields(results.data, id)
+    await equipmentRepository.save(equipment)
     return null
   } else if (request.method === 'POST') {
-    let equipment = await db.equipment.findFirst({
+    let equipment = await equipmentRepository.findOne({
       where: { id },
     })
     if (!equipment) {
       throw new Response('Not found', { status: 404 })
     }
-    let newEquipment = await db.equipment.create({ data: _.omit(equipment, ['id']) })
+    let newEquipment = equipment.duplicate()
+    await equipmentRepository.save(newEquipment)
     return redirect(`/equipments/${newEquipment.id}`)
   } else if (request.method === 'DELETE') {
-    let equipment = await db.equipment.findFirst({
+    let equipment = await equipmentRepository.findOne({
       where: { id: id },
     })
     if (!equipment) {
       throw new Response('Not found', { status: 404 })
     }
-    await db.equipment.delete({ where: { id: id } })
+    await equipmentRepository.remove(equipment)
     return redirect('/equipments')
   }
 }

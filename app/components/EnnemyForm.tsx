@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material'
-import type { Ennemy as EnnemyEntity } from '@prisma/client'
+import type { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
 
 export default function EnnemyForm(props: Partial<EnnemyEntity>) {
   return (
