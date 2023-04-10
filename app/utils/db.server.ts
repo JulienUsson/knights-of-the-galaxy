@@ -1,14 +1,8 @@
 import { User } from '~/entities/user.entity'
 import { Equipment } from '~/entities/equipment.entity'
 import { Ennemy } from '~/entities/ennemy.entity'
-import { DataSource } from 'typeorm'
-import path from 'path'
-
-export const AppDataSource = new DataSource({
-  type: 'sqlite',
-  database: path.join(__dirname, '../database.db'),
-  entities: [Ennemy, Equipment, User],
-})
+import { AppDataSource } from 'data-source'
+import type { DataSource } from 'typeorm'
 
 export function getDataSource(): Promise<DataSource> {
   if (AppDataSource.isInitialized) {
