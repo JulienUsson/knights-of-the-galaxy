@@ -12,6 +12,7 @@ import { withEmotionCache } from '@emotion/react'
 import { unstable_useEnhancedEffect as useEnhancedEffect } from '@mui/material'
 import theme from './src/theme'
 import ClientStyleContext from './src/ClientStyleContext'
+import styles from '~/global.css'
 
 interface DocumentProps {
   children: React.ReactNode
@@ -54,6 +55,7 @@ const Document = withEmotionCache(({ children, title }: DocumentProps, emotionCa
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Orbitron:300,400,500,700&display=swap"
         />
+        <link rel="stylesheet" href={styles} />
         <meta name="emotion-insertion-point" content="emotion-insertion-point" />
       </head>
       <body>

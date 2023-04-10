@@ -2,12 +2,13 @@ import type { ActionFunction, LoaderFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { useActionData, Form } from '@remix-run/react'
 import { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
-import { Button, Container, Stack, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import type { EquipmentFields } from '~/schemas/equipmentSchema'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
 import { requireUserId } from '~/utils/session.server'
 import { getEquipmentRepository } from '~/utils/db.server'
+import { Layout } from '~/components/Layout'
 
 export let loader: LoaderFunction = async ({ request }) => {
   return await requireUserId(request)
@@ -38,10 +39,7 @@ export default function NewEquipmentRoute() {
   let actionData = useActionData<ActionData | undefined>()
 
   return (
-    <Container maxWidth="lg">
-      <Typography variant="h2" gutterBottom>
-        Créer un équipement
-      </Typography>
+    <Layout title="Créer un équipement">
       <Form method="post">
         <Stack direction="column" spacing={2}>
           <EquipmentForm {...actionData?.fields} />
@@ -51,6 +49,6 @@ export default function NewEquipmentRoute() {
           </Button>
         </Stack>
       </Form>
-    </Container>
+    </Layout>
   )
 }

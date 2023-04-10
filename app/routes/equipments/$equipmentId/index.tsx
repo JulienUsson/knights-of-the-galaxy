@@ -2,12 +2,13 @@ import { json, redirect } from '@remix-run/node'
 import type { LoaderFunction, ActionFunction, MetaFunction } from '@remix-run/node'
 import { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
 import { Form, Link, useActionData, useLoaderData } from '@remix-run/react'
-import { Button, Container, Grid, Stack, Typography } from '@mui/material'
+import { Button, Grid, Stack, Typography } from '@mui/material'
 import EquipmentForm from '~/components/EquipmentForm'
 import { equipmentSchema } from '~/schemas/equipmentSchema'
 import Equipment from '~/components/Equipment'
 import { requireUserId } from '~/utils/session.server'
 import { getEquipmentRepository } from '~/utils/db.server'
+import { Layout } from '~/components/Layout'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -85,11 +86,7 @@ export default function EquipmentRoute() {
   let actionData = useActionData<ActionData | undefined>()
 
   return (
-    <Container maxWidth="lg">
-      <Button component={Link} to="/equipments">
-        &lt;- Equipements
-      </Button>
-      <Typography variant="h2">Editer un équipement</Typography>
+    <Layout title="Editer un équipement">
       <Stack direction="row" spacing={1} mb={4}>
         <Form method="post">
           <Button variant="contained" type="submit">
@@ -125,6 +122,6 @@ export default function EquipmentRoute() {
           <Equipment {...data.equipment} />
         </Grid>
       </Grid>
-    </Container>
+    </Layout>
   )
 }

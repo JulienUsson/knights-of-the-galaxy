@@ -2,12 +2,13 @@ import { json, redirect } from '@remix-run/node'
 import type { LoaderFunction, ActionFunction, MetaFunction } from '@remix-run/node'
 import { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
 import { Form, Link, useActionData, useLoaderData } from '@remix-run/react'
-import { Button, Container, Grid, Stack, Typography } from '@mui/material'
+import { Button, Grid, Stack, Typography } from '@mui/material'
 import EnnemyForm from '~/components/EnnemyForm'
 import Ennemy from '~/components/Ennemy'
 import { ennemySchema } from '~/schemas/ennemySchema'
 import { requireUserId } from '~/utils/session.server'
 import { getEnnemyRepository } from '~/utils/db.server'
+import { Layout } from '~/components/Layout'
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData | undefined }) => {
   if (!data) {
@@ -85,11 +86,7 @@ export default function EnnemyRoute() {
   let actionData = useActionData<ActionData | undefined>()
 
   return (
-    <Container maxWidth="lg">
-      <Button component={Link} to="/ennemies">
-        &lt;- Ennemies
-      </Button>
-      <Typography variant="h2">Editer un ennemie</Typography>
+    <Layout title="Editer un ennemie">
       <Stack direction="row" spacing={1} mb={4}>
         <Form method="post">
           <Button variant="contained" type="submit">
@@ -125,6 +122,6 @@ export default function EnnemyRoute() {
           <Ennemy {...data.ennemy} />
         </Grid>
       </Grid>
-    </Container>
+    </Layout>
   )
 }

@@ -1,13 +1,4 @@
-import {
-  Button,
-  Container,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Stack,
-  Typography,
-} from '@mui/material'
+import { Button, List, ListItem, ListItemButton, ListItemText, Stack } from '@mui/material'
 import type { LoaderFunction } from '@remix-run/node'
 import { json } from '@remix-run/node'
 import { Link, useLoaderData } from '@remix-run/react'
@@ -15,6 +6,7 @@ import _ from 'lodash'
 import { requireUserId } from '~/utils/session.server'
 import type { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
 import { getEnnemyRepository } from '~/utils/db.server'
+import { Layout } from '~/components/Layout'
 
 type LoaderData = { ennemyListItems: EnnemyEntity[] }
 
@@ -31,11 +23,7 @@ export default function EnnemiesRoute() {
   const data = useLoaderData<LoaderData>()
 
   return (
-    <Container maxWidth="lg">
-      <Button component={Link} to="/">
-        &lt;- Accueil
-      </Button>
-      <Typography variant="h2">Liste des ennemies</Typography>
+    <Layout title="Liste des ennemies">
       <Stack direction="row" spacing={2} mb={4}>
         <Button variant="contained" component={Link} to="new">
           Créer
@@ -59,6 +47,6 @@ export default function EnnemiesRoute() {
           </ListItem>
         ))}
       </List>
-    </Container>
+    </Layout>
   )
 }

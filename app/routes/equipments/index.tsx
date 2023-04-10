@@ -14,6 +14,7 @@ import { Link, useLoaderData } from '@remix-run/react'
 import { requireUserId } from '~/utils/session.server'
 import type { Equipment as EquipmentEntity } from '~/entities/equipment.entity'
 import { getEquipmentRepository } from '~/utils/db.server'
+import { Layout } from '~/components/Layout'
 
 type LoaderData = { equipmentListItems: EquipmentEntity[] }
 
@@ -30,11 +31,7 @@ export default function EquipmentsRoute() {
   const data = useLoaderData<LoaderData>()
 
   return (
-    <Container maxWidth="lg">
-      <Button component={Link} to="/">
-        &lt;- Accueil
-      </Button>
-      <Typography variant="h2">Liste des équipements</Typography>
+    <Layout title="Liste des équipements">
       <Stack direction="row" spacing={2} mb={4}>
         <Button variant="contained" component={Link} to="new">
           Créer
@@ -55,6 +52,6 @@ export default function EquipmentsRoute() {
           </ListItem>
         ))}
       </List>
-    </Container>
+    </Layout>
   )
 }

@@ -2,12 +2,13 @@ import type { ActionFunction } from '@remix-run/node'
 import { redirect } from '@remix-run/node'
 import { useActionData, Form } from '@remix-run/react'
 import { Ennemy as EnnemyEntity } from '~/entities/ennemy.entity'
-import { Button, Container, Stack, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 import EnnemyForm from '~/components/EnnemyForm'
 import type { EnnemyFields } from '~/schemas/ennemySchema'
 import { ennemySchema } from '~/schemas/ennemySchema'
 import { requireUserId } from '~/utils/session.server'
 import { getEnnemyRepository } from '~/utils/db.server'
+import { Layout } from '~/components/Layout'
 
 type ActionData = {
   formError?: string
@@ -34,10 +35,7 @@ export default function NewEnnemyRoute() {
   let actionData = useActionData<ActionData | undefined>()
 
   return (
-    <Container maxWidth="lg">
-      <Typography variant="h2" gutterBottom>
-        Créer un ennemie
-      </Typography>
+    <Layout title="Créer un ennemie">
       <Form method="post">
         <Stack direction="column" spacing={2}>
           <EnnemyForm {...actionData?.fields} />
@@ -47,6 +45,6 @@ export default function NewEnnemyRoute() {
           </Button>
         </Stack>
       </Form>
-    </Container>
+    </Layout>
   )
 }
